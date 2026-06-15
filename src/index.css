@@ -1,0 +1,414 @@
+:root {
+  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  /* Modern Pastel Palette */
+  --bg-color: #f7f9fc;
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-border: rgba(255, 255, 255, 0.4);
+  --text-primary: #334155;
+  --text-secondary: #64748b;
+  
+  /* Weekly Colors matching reference */
+  --week1-bg: #ffe4e6; /* light pink */
+  --week1-border: #fda4af;
+  --week1-checkbox: #e11d48;
+  
+  --week2-bg: #fef08a; /* light yellow */
+  --week2-border: #fde047;
+  --week2-checkbox: #ca8a04;
+  
+  --week3-bg: #f3e8ff; /* light purple */
+  --week3-border: #d8b4fe;
+  --week3-checkbox: #9333ea;
+  
+  --week4-bg: #e2e8f0; /* gray */
+  --week4-border: #cbd5e1;
+  --week4-checkbox: #475569;
+  
+  --week5-bg: #e0f2fe; /* light blue */
+  --week5-border: #bae6fd;
+  --week5-checkbox: #0284c7;
+
+  /* General accents */
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  
+  /* Spacing & Borders */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Theme-specific Elements */
+  --cell-bg: #fff;
+  --cell-bg-hover: #f8fafc;
+  --cell-border: #e2e8f0;
+  --goal-bg: #fff0f2;
+  --goal-text: #be123c;
+  --checkbox-border: #cbd5e1;
+  --summary-bg: #f1f5f9;
+  --input-focus: #e2e8f0;
+}
+
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --panel-bg: rgba(30, 41, 59, 0.7);
+  --panel-border: rgba(51, 65, 85, 0.4);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  --week1-bg: #1e293b;
+  --week1-border: #f43f5e;
+  --week1-checkbox: #f43f5e;
+  
+  --week2-bg: #1e293b;
+  --week2-border: #eab308;
+  --week2-checkbox: #eab308;
+  
+  --week3-bg: #1e293b;
+  --week3-border: #a855f7;
+  --week3-checkbox: #a855f7;
+  
+  --week4-bg: #1e293b;
+  --week4-border: #94a3b8;
+  --week4-checkbox: #94a3b8;
+  
+  --week5-bg: #1e293b;
+  --week5-border: #38bdf8;
+  --week5-checkbox: #38bdf8;
+
+  --cell-bg: #1e293b;
+  --cell-bg-hover: #334155;
+  --cell-border: #334155;
+  --goal-bg: #334155;
+  --goal-text: #f8fafc;
+  --checkbox-border: #475569;
+  --summary-bg: #0f172a;
+  --input-focus: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Glassmorphism panel style */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  height: 120px;
+}
+
+.month-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 200px;
+  background: var(--week1-bg);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.month-display h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.month-display h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.month-nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 4px;
+  transition: background 0.2s;
+}
+
+.month-nav-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.top-chart {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* --- Habit Grid Styles --- */
+
+.grid-wrapper {
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.habit-grid {
+  display: grid;
+  grid-template-columns: 250px repeat(31, minmax(35px, 1fr)) 100px;
+  gap: 2px;
+  width: max-content;
+}
+
+/* Base Cell */
+.grid-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  background: var(--cell-bg);
+  transition: all 0.2s ease;
+}
+
+.grid-header {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Habit Name Column (Sticky) */
+.habit-name {
+  justify-content: flex-start;
+  padding-left: 15px;
+  font-weight: 500;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: var(--cell-bg);
+  border-right: 1px solid var(--cell-border);
+}
+
+.habit-name:hover {
+  background: var(--cell-bg-hover);
+}
+
+.habit-icon {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+/* Monthly Goal Column */
+.monthly-goal {
+  font-weight: 600;
+  background: var(--goal-bg);
+  color: var(--goal-text);
+}
+
+/* Week Colors */
+.week-1 { background: var(--week1-bg); border-bottom: 2px solid var(--week1-border); }
+.week-2 { background: var(--week2-bg); border-bottom: 2px solid var(--week2-border); }
+.week-3 { background: var(--week3-bg); border-bottom: 2px solid var(--week3-border); }
+.week-4 { background: var(--week4-bg); border-bottom: 2px solid var(--week4-border); }
+.week-5 { background: var(--week5-bg); border-bottom: 2px solid var(--week5-border); }
+
+/* Checkboxes */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.checkbox-container input {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.checkbox-container:hover .custom-checkbox {
+  transform: scale(1.1);
+}
+
+.checkbox-container input:checked + .custom-checkbox {
+  background-color: transparent;
+}
+
+/* Colorize checked boxes by week */
+.week-1 .custom-checkbox { border-color: var(--week1-checkbox); }
+.week-1 input:checked + .custom-checkbox { background: var(--week1-checkbox); color: #fff; }
+
+.week-2 .custom-checkbox { border-color: var(--week2-checkbox); }
+.week-2 input:checked + .custom-checkbox { background: var(--week2-checkbox); color: #fff; }
+
+.week-3 .custom-checkbox { border-color: var(--week3-checkbox); }
+.week-3 input:checked + .custom-checkbox { background: var(--week3-checkbox); color: #fff; }
+
+.week-4 .custom-checkbox { border-color: var(--week4-checkbox); }
+.week-4 input:checked + .custom-checkbox { background: var(--week4-checkbox); color: #fff; }
+
+.week-5 .custom-checkbox { border-color: var(--week5-checkbox); }
+.week-5 input:checked + .custom-checkbox { background: var(--week5-checkbox); color: #fff; }
+
+
+.custom-checkbox svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s ease;
+}
+
+.checkbox-container input:checked + .custom-checkbox svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Summary Rows */
+.summary-row {
+  background: var(--summary-bg);
+  font-weight: 600;
+}
+.summary-label {
+  justify-content: flex-end;
+  padding-right: 15px;
+}
+
+/* Mood Tracker */
+.mood-tracker {
+  margin-top: 10px;
+}
+
+.mood-row {
+  display: grid;
+  grid-template-columns: 250px repeat(31, minmax(35px, 1fr)) 100px;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.mood-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 0.85rem;
+  outline: none;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.mood-input:focus {
+  background: var(--input-focus);
+}
+
+/* Bottom Stats */
+.bottom-stats {
+  display: flex;
+  gap: 10px;
+  height: 150px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.overview-chart {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--summary-bg);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--checkbox-border);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.font-bold { font-weight: bold; }
+.mt-4 { margin-top: 1rem; }
+
+/* Recharts Tooltip Overrides */
+.recharts-default-tooltip {
+  background-color: var(--panel-bg) !important;
+  border: 1px solid var(--panel-border) !important;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.recharts-default-tooltip p,
+.recharts-default-tooltip span,
+.recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-value {
+  color: var(--text-primary) !important;
+}
