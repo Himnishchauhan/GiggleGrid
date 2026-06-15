@@ -86,7 +86,6 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 Contributions, issues, and feature requests are welcome!
 
 ## 🏷️ Tags / Topics
-*(Add these to your GitHub Repository "About" section topics to boost popularity!)*
 
 `react`, `electron`, `habit-tracker`, `productivity`, `vite`, `recharts`, `dark-mode`, `desktop-app`, `glassmorphism`, `ui-design`, `self-improvement`, `javascript`
 
