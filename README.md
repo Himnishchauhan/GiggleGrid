@@ -87,7 +87,7 @@ Contributions, issues, and feature requests are welcome!
 
 ## 🏷️ Tags / Topics
 
-`react`, `electron`, `habit-tracker`, `productivity`, `vite`, `recharts`, `dark-mode`, `desktop-app`, `glassmorphism`, `ui-design`, `self-improvement`, `javascript`, 'windows', 'free'
+`react`, `electron`, `habit-tracker`, `productivity`, `vite`, `recharts`, `dark-mode`, `desktop-app`, `glassmorphism`, `ui-design`, `self-improvement`, `javascript`, `windows`, `free`
 
 ---
 
